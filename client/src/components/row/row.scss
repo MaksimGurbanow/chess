@@ -1,0 +1,24 @@
+@import '../../index.scss';
+
+.board-row {
+  display: flex;
+  gap: 1px;
+  &:nth-child(2n) {
+    background: white;
+    & .cell:nth-child(2n) {
+      background: white;
+    }
+    & .cell:nth-child(2n+1) {
+      background: var(--dark-cell-color);
+    }
+  }
+  &:nth-child(2n+1) {
+    background: var(--dark-cell-color);
+    & .cell:nth-child(2n) {
+      background: var(--dark-cell-color);
+    }
+    & .cell:nth-child(2n+1) {
+      background: white;
+    }
+  }
+}

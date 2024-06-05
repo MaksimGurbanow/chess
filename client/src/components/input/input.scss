@@ -1,0 +1,37 @@
+.input {
+  font-size: 0.7em;
+  border: none;
+  background: none;
+  padding-inline: 17px;
+  outline: none;
+  &:focus {
+    background-color: none;
+  }
+
+}
+
+.label {
+  font-size: 1em;
+  position: absolute;
+  z-index: 3;
+  padding: 5px;
+  transition: all 150ms ease-in;
+  transition-delay: 150ms;
+  transform: translateX(5%);
+}
+
+.input-container {
+  font-size: x-large;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  margin-inline: 5%;
+  border: 1px solid;
+  padding: 15px;
+  position: relative;
+}
+
+.focused {
+  transform: translate(-10%, -95%);
+}
