@@ -15,8 +15,34 @@ export interface User {
   draws: number;
 }
 
-export type ChessRow = Figure[] & { length: 8 };
+export type ChessRow = FigureType[] & { length: 8 };
 
 export type ChessBoard = ChessRow[] & { length: 8 };
 
-export type Figure = 'bk' | 'bq' | 'bp' | 'bb' | 'br' | 'bn' | '' | 'wk' | 'wq' | 'wp' | 'wb' | 'wr' | 'wn';
+export type FigureType =
+  | 'bk'
+  | 'bq'
+  | 'bp'
+  | 'bb'
+  | 'br'
+  | 'bn'
+  | ''
+  | 'wk'
+  | 'wq'
+  | 'wp'
+  | 'wb'
+  | 'wr'
+  | 'wn';
+
+export type Color = 'w' | 'b';
+
+export type FigureName = 'k' | 'n' | 'q' | 'b' | 'r' | 'p';
+
+export enum FigurePath {
+  k = 'king',
+  q = 'queen',
+  b = 'bishop',
+  n = 'knight',
+  p = 'pawn',
+  r = 'rock',
+}

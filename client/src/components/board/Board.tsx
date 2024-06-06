@@ -17,7 +17,7 @@ const Board = () => {
   return (
     <div className="board">
       {figuresState.map((row, i) => {
-        const rowKey = `key-${i}`;
+        const rowKey = `row_${i}`;
         return <Row key={rowKey} positions={row} />;
       })}
     </div>
