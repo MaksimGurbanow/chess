@@ -46,3 +46,20 @@ export enum FigurePath {
   p = 'pawn',
   r = 'rock',
 }
+
+export type Coordinates = { x: number; y: number };
+
+export interface IFigure {
+  firstMove: boolean;
+  x: number;
+  y: number;
+  isTransformable: boolean;
+  value: number;
+}
+
+export interface FigureProps {
+  x: number;
+  y: number;
+  value: number;
+  isWhite: boolean;
+}
