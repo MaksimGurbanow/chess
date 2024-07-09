@@ -5,9 +5,10 @@
   flex-direction: row;
   position: relative;
   background-color: transparent;
+  border: none;
 
   &-highlight {
-    background: #c8ee40;
+    background: #312e2b63;;
     position: absolute;
     top: 50%;
     right: 50%;
@@ -15,6 +16,9 @@
     width: 10px;
     height: 10px;
     transform: translate(50%, -50%);
-    border: 1px solid black;
+  }
+
+  & .active {
+    background: var(--highlight-color) !important;
   }
 }

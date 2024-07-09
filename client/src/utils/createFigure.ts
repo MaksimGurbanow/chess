@@ -4,23 +4,28 @@ import Knight from '../app/figures/Knight';
 import Pawn from '../app/figures/Pawn';
 import Queen from '../app/figures/Queen';
 import Rook from '../app/figures/Rook';
-import { Color, FigureName } from '../types/types';
+import { FigureType } from '../types/types';
 
-export default (figure: FigureName, color: Color, x: number, y: number) => {
-  switch (figure) {
+export default (
+  figure: { name: FigureType; firstMove: boolean },
+  x: number,
+  y: number
+) => {
+  const { name, firstMove } = figure;
+  switch (name[1]) {
     case 'k':
-      return new King(x, y, color === 'w');
+      return new King(x, y, name[0] === 'w', name, firstMove);
     case 'q':
-      return new Queen(x, y, color === 'w');
+      return new Queen(x, y, name[0] === 'w', name, firstMove);
     case 'p':
-      return new Pawn(x, y, color === 'w');
+      return new Pawn(x, y, name[0] === 'w', name, firstMove);
     case 'b':
-      return new Bishop(x, y, color === 'w');
+      return new Bishop(x, y, name[0] === 'w', name, firstMove);
     case 'r':
-      return new Rook(x, y, color === 'w');
+      return new Rook(x, y, name[0] === 'w', name, firstMove);
     case 'n':
-      return new Knight(x, y, color === 'w');
+      return new Knight(x, y, name[0] === 'w', name, firstMove);
     default:
-      throw new Error("Figure type is not defined or it doesn' appropriate");
+      throw new Error(`Incorrect figure type: ${name[0] + figure}`);
   }
 };

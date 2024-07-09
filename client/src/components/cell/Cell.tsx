@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { memo } from 'react';
 import { ChooseFigure } from '../../types/props';
-import { Color, FigureName, FigureType } from '../../types/types';
+import { FigureType } from '../../types/types';
 import Figure from '../figure/Figure';
 import './cell.scss';
 
@@ -13,7 +14,7 @@ const Cell = ({
   highlighted,
   onClick,
 }: {
-  figure: FigureType;
+  figure: { name: FigureType; firstMove: boolean };
   showCoords: ChooseFigure;
   x: number;
   y: number;
@@ -31,17 +32,11 @@ const Cell = ({
       role="cell"
     >
       {highlighted && <div className="cell-highlight" />}
-      {figure && (
-        <Figure
-          figure={figure[1] as FigureName}
-          color={figure[0] as Color}
-          showCoords={showCoords}
-          x={x}
-          y={y}
-        />
+      {figure.name && (
+        <Figure figure={figure} showCoords={showCoords} x={x} y={y} />
       )}
     </div>
   );
 };
 
-export default Cell;
+export default memo(Cell);

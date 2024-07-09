@@ -15,7 +15,9 @@ export interface User {
   draws: number;
 }
 
-export type ChessRow = FigureType[] & { length: 8 };
+export type ChessRow = { name: FigureType; firstMove?: boolean }[] & {
+  length: 8;
+};
 
 export type ChessBoard = ChessRow[] & { length: 8 };
 

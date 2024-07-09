@@ -1,9 +1,15 @@
-import { Coordinates } from '../../types/types';
+import { Coordinates, FigureType } from '../../types/types';
 import Figure from './Figure';
 
 export default class Queen extends Figure {
-  constructor(x: number, y: number, isWhite: boolean) {
-    super({ value: 3, x, y, isTransformable: false, isWhite });
+  constructor(
+    x: number,
+    y: number,
+    isWhite: boolean,
+    name: FigureType,
+    firstMove: boolean = true
+  ) {
+    super({ value: 9, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
   public getMoves(): Coordinates[] {

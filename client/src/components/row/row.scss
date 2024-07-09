@@ -4,9 +4,9 @@
   display: flex;
   gap: 1px;
   &:nth-child(2n) {
-    background: white;
+    background: var(--light-cell-color);
     & .cell:nth-child(2n) {
-      background: white;
+      background: var(--light-cell-color);
     }
     & .cell:nth-child(2n+1) {
       background: var(--dark-cell-color);
@@ -18,7 +18,7 @@
       background: var(--dark-cell-color);
     }
     & .cell:nth-child(2n+1) {
-      background: white;
+      background: var(--light-cell-color);
     }
   }
 }

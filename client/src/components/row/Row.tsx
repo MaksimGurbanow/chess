@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ChooseFigure } from '../../types/props';
 import { ChessRow, Coordinates } from '../../types/types';
 import Cell from '../cell/Cell';
@@ -23,7 +24,10 @@ const Row = ({
         return (
           <Cell
             key={cellKey}
-            figure={figure}
+            figure={{
+              name: figure.name,
+              firstMove: !!figure.firstMove,
+            }}
             showCoords={showCoords}
             onClick={clickCell}
             x={i}
@@ -41,4 +45,4 @@ const Row = ({
   );
 };
 
-export default Row;
+export default memo(Row);

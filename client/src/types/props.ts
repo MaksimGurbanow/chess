@@ -1,6 +1,12 @@
 import { InputHTMLAttributes, LabelHTMLAttributes } from 'react';
 import { IconProps } from 'react-bootstrap-icons';
-import { Coordinates, FigureType } from './types';
+import { Coordinates } from './types';
+import Bishop from '../app/figures/Bishop';
+import King from '../app/figures/King';
+import Knight from '../app/figures/Knight';
+import Pawn from '../app/figures/Pawn';
+import Queen from '../app/figures/Queen';
+import Rook from '../app/figures/Rook';
 
 export interface CustomIconProps extends Partial<IconProps> {
   callback: () => void;
@@ -19,5 +25,5 @@ export interface FormProps<T> {
 
 export type ChooseFigure = (
   coords: Coordinates[],
-  elem: { elem: FigureType; ownCoordinates: Coordinates }
+  elem: King | Queen | Pawn | Bishop | Rook | Knight
 ) => void;

@@ -1,35 +1,34 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { memo, useMemo } from 'react';
 import { ChooseFigure } from '../../types/props';
-import { Color, Coordinates, FigureName, FigureType } from '../../types/types';
+import { Coordinates, FigureType } from '../../types/types';
 import DefinedFigure from '../../utils/DefinedFigure';
 import createFigure from '../../utils/createFigure';
 
 const Figure = ({
   figure,
-  color,
   x,
   y,
   showCoords,
 }: {
-  figure: FigureName;
-  color: Color;
+  figure: { name: FigureType; firstMove: boolean };
   showCoords: ChooseFigure;
 } & Coordinates) => {
-  const figureClass = createFigure(figure, color, x, y);
+  const figureState = useMemo(() => createFigure(figure, x, y), [figure, x, y]);
+
+  const handleClick = () => {
+    showCoords(figureState.getMoves(), figureState);
+  };
+
   return (
     <div
-      onClick={() => {
-        showCoords(figureClass.getMoves(), {
-          elem: (color + figure) as FigureType,
-          ownCoordinates: { x, y },
-        });
-      }}
-      className="figure"
+      onClick={handleClick}
+      className={`figure ${figure.name[0]}-${figure.name[1].toLowerCase()}`}
     >
-      <DefinedFigure figure={figure} color={color} />
+      <DefinedFigure figure={figure.name[1]} color={figure.name[0]} />
     </div>
   );
 };
 
-export default Figure;
+export default memo(Figure);
