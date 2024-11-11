@@ -1,4 +1,4 @@
-import { Coordinates, FigureType } from '../../types/types';
+import { ChessBoard, Coordinates, FigureType } from '../../types/types';
 import Figure from './Figure';
 
 export default class Knight extends Figure {
@@ -12,7 +12,7 @@ export default class Knight extends Figure {
     super({ value: 3, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(): Coordinates[] {
+  public getMoves(board: ChessBoard): Coordinates[] {
     return [
       {
         x: this.x - 2,
@@ -46,12 +46,18 @@ export default class Knight extends Figure {
         y: this.y + 2,
         x: this.x + 1,
       },
-    ].filter(
-      (coordinate) =>
-        coordinate.x >= 0 &&
-        coordinate.y >= 0 &&
-        coordinate.x < 8 &&
-        coordinate.y < 8
-    );
+    ]
+      .filter(
+        (coordinate) =>
+          coordinate.x >= 0 &&
+          coordinate.y >= 0 &&
+          coordinate.x < 8 &&
+          coordinate.y < 8
+      )
+      .filter(
+        (coordinate) =>
+          (board[coordinate.y][coordinate.x].name[0] !== 'w' && this.isWhite) ||
+          (board[coordinate.y][coordinate.x].name[0] !== 'b' && !this.isWhite)
+      );
   }
 }

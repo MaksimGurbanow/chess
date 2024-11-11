@@ -1,8 +1,8 @@
 import { FormEvent } from 'react';
 import generateKey from '../../utils/generateKey';
-import Button from '../button/Button';
+import Button from '../Button/Button';
 import './form.css';
-import Input from '../input/Input';
+import Input from '../Input/Input';
 import { FormProps } from '../../types/props';
 
 const Form = <T,>({ inputs, onSubmit }: FormProps<T>) => {

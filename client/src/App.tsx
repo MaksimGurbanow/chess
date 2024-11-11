@@ -1,30 +1,63 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  HashRouter,
+  Outlet,
+  Route,
+  RouterProvider,
+  Routes,
+} from 'react-router-dom';
 import './App.scss';
 import Login from './routes/Login';
 import Main from './routes/Main';
-import Home from './routes/Home';
+import Home from './routes/Home/Home';
 import Profile from './routes/Profile';
-import UserProvider from './context/UserContext';
+import { StoreProvider } from './redux/store';
+import Header from './components/Header/Header';
+import Footer from './components/footer/Footer';
+import { GameProvider } from './context/useGame';
+
+const Index = () => {
+  return (
+    <>
+      <StoreProvider>
+        <GameProvider>
+          <Header />
+          <Outlet />
+          <Footer />
+        </GameProvider>
+      </StoreProvider>
+    </>
+  );
+};
+
+const browserRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <Index />,
+    children: [
+      {
+        path: '',
+        element: <Home />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'main',
+        element: <Main />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+    ],
+  },
+]);
 
 const App = () => {
-  return (
-    <UserProvider>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </UserProvider>
-  );
+  return <RouterProvider router={browserRouter} />;
 };
 
-const WrappedApp = () => {
-  return (
-    <HashRouter>
-      <App />
-    </HashRouter>
-  );
-};
-
-export default WrappedApp;
+export default App;

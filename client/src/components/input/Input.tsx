@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
-import './input.scss';
+import classes from './Input.module.scss';
 import { InputProps } from '../../types/props';
+import cn from 'classnames'
 
 const Input = ({
   placeholder,
@@ -17,12 +18,13 @@ const Input = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="input-container">
+    <div className={classes.inputContainer}>
       {variant === 'labeled' && (
         <label
           htmlFor={inputId}
           form={form}
-          className={`label ${isFocused || value ? 'focused' : ''}`}
+          className={cn(classes.label, { [classes.focused]: value || isFocused })}
+          // className={`label ${isFocused || value ? 'focused' : ''}`}
         >
           {name}
         </label>
@@ -36,7 +38,7 @@ const Input = ({
           setValue(e.target.value);
         }}
         value={value}
-        className="input"
+        className={classes.input}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         required={required}

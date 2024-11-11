@@ -18,9 +18,10 @@ body, #root, .page {
   overflow-y: auto;
   scroll-behavior: smooth;
   margin: auto;
+  flex-direction: column;
 }
 
-.page {
+.globalpage {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

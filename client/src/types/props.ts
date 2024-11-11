@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, LabelHTMLAttributes } from 'react';
 import { IconProps } from 'react-bootstrap-icons';
-import { Coordinates } from './types';
+import { ChessRow, Coordinates, FigureType } from './types';
 import Bishop from '../app/figures/Bishop';
 import King from '../app/figures/King';
 import Knight from '../app/figures/Knight';
@@ -27,3 +27,21 @@ export type ChooseFigure = (
   coords: Coordinates[],
   elem: King | Queen | Pawn | Bishop | Rook | Knight
 ) => void;
+
+export interface CellProps {
+  figure: { name: FigureType; firstMove: boolean };
+  // showCoords: ChooseFigure;
+  x: number;
+  y: number;
+  // highlighted: boolean;
+  // onClick: (x: number, y: number) => void;
+  className?: string;
+}
+
+export interface RowProps {
+  positions: ChessRow;
+  yCoord: number;
+  // showCoords: ChooseFigure;
+  // availableCells: Coordinates[];
+  // clickCell: (x: number, y: number) => void;
+}

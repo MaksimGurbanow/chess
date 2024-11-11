@@ -1,19 +1,21 @@
 /* eslint-disable react/button-has-type */
 import { ButtonHTMLAttributes } from 'react';
-import './button.scss';
+import classes from './Button.module.scss';
+import classNames from 'classnames';
 
 const Button = ({
   disabled,
   type = 'button',
   onClick,
   children,
+  className,
 }: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className="button"
+      className={classNames(classes.button, className)}
     >
       {children}
     </button>

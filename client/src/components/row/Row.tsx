@@ -1,24 +1,14 @@
 import { memo } from 'react';
-import { ChooseFigure } from '../../types/props';
-import { ChessRow, Coordinates } from '../../types/types';
+import { RowProps } from '../../types/props';
 import Cell from '../cell/Cell';
-import './row.scss';
+import classes from './Row.module.scss';
 
 const Row = ({
   positions,
   yCoord,
-  showCoords,
-  availableCells,
-  clickCell,
-}: {
-  positions: ChessRow;
-  yCoord: number;
-  showCoords: ChooseFigure;
-  availableCells: Coordinates[];
-  clickCell: (x: number, y: number) => void;
-}) => {
+}: RowProps) => {
   return (
-    <div className="board-row">
+    <div className={classes.boardRow}>
       {positions.map((figure, i) => {
         const cellKey = `cell_${i}`;
         return (
@@ -28,16 +18,9 @@ const Row = ({
               name: figure.name,
               firstMove: !!figure.firstMove,
             }}
-            showCoords={showCoords}
-            onClick={clickCell}
             x={i}
             y={yCoord}
-            highlighted={
-              !!availableCells.find(
-                (availableCell) =>
-                  availableCell.x === i && availableCell.y === yCoord
-              )
-            }
+            className={classes.cell}
           />
         );
       })}

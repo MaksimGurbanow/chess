@@ -53,4 +53,11 @@ export default class Figure implements IFigure {
     this.x = x;
     this.y = y;
   }
+
+  protected isFigure(name: string) {
+    return (
+      ['w', 'b'].includes(name[0]) 
+      /**['k', 'n', 'q', 'b', 'r', 'p'].includes(name[1]) - unnecessary*/
+    );
+  }
 }

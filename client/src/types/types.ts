@@ -15,7 +15,11 @@ export interface User {
   draws: number;
 }
 
-export type ChessRow = { name: FigureType; firstMove?: boolean }[] & {
+export type ChessRow = {
+  name: FigureType;
+  firstMove?: boolean;
+  enPassant?: boolean; // only for pawns
+}[] & {
   length: 8;
 };
 
@@ -64,4 +68,10 @@ export interface FigureProps {
   y: number;
   value: number;
   isWhite: boolean;
+}
+
+export interface GameState {
+  playerColor: Color;
+  boardState: ChessBoard;
+  isKingAttacked: boolean;
 }
