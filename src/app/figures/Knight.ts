@@ -1,4 +1,4 @@
-import { ChessBoard, Coordinates, FigureType } from '../../types/types';
+import { ChessBoard, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
 
 export default class Knight extends Figure {
@@ -12,7 +12,7 @@ export default class Knight extends Figure {
     super({ value: 3, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(board: ChessBoard): Coordinates[] {
+  public getMoves(board: ChessBoard): Move[] {
     return [
       {
         x: this.x - 2,

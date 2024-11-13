@@ -1,4 +1,4 @@
-import { ChessBoard, Coordinates, FigureType } from '../../types/types';
+import { ChessBoard, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
 
 export default class Pawn extends Figure {
@@ -12,8 +12,8 @@ export default class Pawn extends Figure {
     super({ value: 1, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(board: ChessBoard): Coordinates[] {
-    const moves = [];
+  public getMoves(board: ChessBoard): Move[] {
+    const moves: Move[] = [];
     if (this.isWhite) {
       if (!this.isFigure(board[this.y - 1][this.x].name)) {
         // adds the move if figure is white and there is no pieces on the possible move
@@ -28,11 +28,29 @@ export default class Pawn extends Figure {
         if (this.isFigure(rightPiece) && rightPiece[0] === 'b') {
           moves.push({ x: this.x + 1, y: this.y - 1 });
         }
+        const enPassantRight = board[this.y][this.x + 1];
+        if (enPassantRight.name === 'bp' && enPassantRight.enPassant) {
+          moves.push({
+            x: this.x + 1,
+            y: this.y - 1,
+            isEnpassant: true,
+            pieceToRemove: { x: this.x + 1, y: this.y },
+          });
+        }
       }
       if (this.x - 1 >= 0) {
         const leftPiece = board[this.y - 1][this.x - 1].name;
         if (this.isFigure(leftPiece) && leftPiece[0] === 'b') {
           moves.push({ x: this.x - 1, y: this.y - 1 });
+        }
+        const enPassantLeft = board[this.y][this.x - 1];
+        if (enPassantLeft.name === 'bp' && enPassantLeft.enPassant) {
+          moves.push({
+            x: this.x - 1,
+            y: this.y - 1,
+            isEnpassant: true,
+            pieceToRemove: { x: this.x - 1, y: this.y },
+          });
         }
       }
     } else {
@@ -49,11 +67,29 @@ export default class Pawn extends Figure {
         if (this.isFigure(rightPiece) && rightPiece[0] === 'w') {
           moves.push({ x: this.x + 1, y: this.y + 1 });
         }
+        const enPassanRight = board[this.y][this.x + 1];
+        if (enPassanRight.name === 'wp' && enPassanRight.enPassant) {
+          moves.push({
+            x: this.x + 1,
+            y: this.y + 1,
+            isEnpassant: true,
+            pieceToRemove: { x: this.x + 1, y: this.y },
+          });
+        }
       }
       if (this.x - 1 >= 0) {
         const leftPiece = board[this.y + 1][this.x - 1].name;
         if (this.isFigure(leftPiece) && leftPiece[0] === 'w') {
           moves.push({ x: this.x - 1, y: this.y + 1 });
+        }
+        const enPassanLeft = board[this.y][this.x - 1];
+        if (enPassanLeft.name === 'wp' && enPassanLeft.enPassant) {
+          moves.push({
+            x: this.x - 1,
+            y: this.y + 1,
+            isEnpassant: true,
+            pieceToRemove: { x: this.x - 1, y: this.y },
+          });
         }
       }
     }

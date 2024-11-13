@@ -1,6 +1,6 @@
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -16,6 +16,7 @@
     width: 10px;
     height: 10px;
     transform: translate(50%, -50%);
+    z-index: 5;
   }
 
   & .active {

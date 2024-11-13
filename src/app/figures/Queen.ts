@@ -1,4 +1,4 @@
-import { ChessBoard, Coordinates, FigureType } from '../../types/types';
+import { ChessBoard, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
 
 export default class Queen extends Figure {
@@ -12,8 +12,8 @@ export default class Queen extends Figure {
     super({ value: 9, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(board: ChessBoard): Coordinates[] {
-    const moves: Coordinates[] = [];
+  public getMoves(board: ChessBoard): Move[] {
+    const moves: Move[] = [];
     const directions = [
       { dx: 1, dy: 0 }, // Right
       { dx: -1, dy: 0 }, // Left

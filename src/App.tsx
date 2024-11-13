@@ -1,12 +1,4 @@
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  HashRouter,
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-} from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import Login from './routes/Login';
 import Main from './routes/Main';
@@ -19,15 +11,13 @@ import { GameProvider } from './context/useGame';
 
 const Index = () => {
   return (
-    <>
-      <StoreProvider>
-        <GameProvider>
-          <Header />
-          <Outlet />
-          <Footer />
-        </GameProvider>
-      </StoreProvider>
-    </>
+    <StoreProvider>
+      <GameProvider>
+        <Header />
+        <Outlet />
+        <Footer />
+      </GameProvider>
+    </StoreProvider>
   );
 };
 

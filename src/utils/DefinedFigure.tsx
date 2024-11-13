@@ -23,17 +23,41 @@ const DefinedFigure = ({
 }) => {
   switch (figure) {
     case 'b':
-      return color === 'b' ? <Bishop /> : <WBishop />;
+      return color === 'b' ? (
+        <Bishop style={{ transform: 'translateX(-1px)' }} />
+      ) : (
+        <WBishop style={{ transform: 'translateX(-1px)' }} />
+      );
     case 'k':
-      return color === 'b' ? <King /> : <WKing />;
+      return color === 'b' ? (
+        <King style={{ transform: 'translateX(-1px)' }} />
+      ) : (
+        <WKing style={{ transform: 'translateX(-1px)' }} />
+      );
     case 'q':
-      return color === 'b' ? <Queen /> : <WQueen />;
+      return color === 'b' ? (
+        <Queen style={{ transform: 'translateX(-1px)' }} />
+      ) : (
+        <WQueen style={{ transform: 'translateX(-1px)' }} />
+      );
     case 'n':
-      return color === 'b' ? <Knight /> : <WKnight />;
+      return color === 'b' ? (
+        <Knight style={{ transform: 'translateX(-1px)' }} />
+      ) : (
+        <WKnight style={{ transform: 'translateX(-1px)' }} />
+      );
     case 'r':
-      return color === 'b' ? <Rock /> : <WRock />;
+      return color === 'b' ? (
+        <Rock style={{ transform: 'translateX(-1px)' }} />
+      ) : (
+        <WRock style={{ transform: 'translateX(-1px)' }} />
+      );
     default:
-      return color === 'b' ? <Pawn /> : <WPawn />;
+      return color === 'b' ? (
+        <Pawn style={{ transform: 'translateX(-1px)' }} />
+      ) : (
+        <WPawn style={{ transform: 'translateX(-1px)' }} />
+      );
   }
 };
 

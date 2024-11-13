@@ -1,4 +1,4 @@
-import { ChessBoard, Coordinates, FigureType } from '../../types/types';
+import { ChessBoard, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
 
 export default class Rook extends Figure {
@@ -12,22 +12,22 @@ export default class Rook extends Figure {
     super({ value: 5, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(board: ChessBoard): Coordinates[] {
-    const moves: Coordinates[] = [];
+  public getMoves(board: ChessBoard): Move[] {
+    const moves: Move[] = [];
     const directions = [
-      { dx: 1, dy: 0 },  // Right
+      { dx: 1, dy: 0 }, // Right
       { dx: -1, dy: 0 }, // Left
-      { dx: 0, dy: 1 },  // Down
-      { dx: 0, dy: -1 }  // Up
+      { dx: 0, dy: 1 }, // Down
+      { dx: 0, dy: -1 }, // Up
     ];
-  
+
     for (const { dx, dy } of directions) {
       let x = this.x + dx;
       let y = this.y + dy;
-  
+
       while (x >= 0 && x < 8 && y >= 0 && y < 8) {
         const nextCell = board[y][x].name;
-  
+
         if (this.isFigure(nextCell)) {
           if (
             (this.isWhite && nextCell[0] === 'b') ||
@@ -37,14 +37,13 @@ export default class Rook extends Figure {
           }
           break;
         }
-  
+
         moves.push({ x, y });
         x += dx;
         y += dy;
       }
     }
-  
+
     return this.filter(moves);
   }
-  
 }

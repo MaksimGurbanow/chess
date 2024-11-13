@@ -1,5 +1,5 @@
 /* eslint-disable no-continue */
-import { ChessBoard, Coordinates, FigureType } from '../../types/types';
+import { ChessBoard, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
 
 export default class Bishop extends Figure {
@@ -13,7 +13,7 @@ export default class Bishop extends Figure {
     super({ value: 3, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(board: ChessBoard): Coordinates[] {
+  public getMoves(board: ChessBoard): Move[] {
     const moves = [];
     for (let x = this.x + 1; x < 8; x += 1) {
       const difference = Math.abs(x - this.x);

@@ -55,6 +55,13 @@ export enum FigurePath {
 
 export type Coordinates = { x: number; y: number };
 
+export type Move = Coordinates & {
+  isEnpassant?: boolean;
+  isCastling?: boolean;
+  castlingRook?: { from: Coordinates; to: Coordinates };
+  pieceToRemove?: Coordinates;
+};
+
 export interface IFigure {
   firstMove: boolean;
   x: number;
@@ -74,4 +81,6 @@ export interface GameState {
   playerColor: Color;
   boardState: ChessBoard;
   isKingAttacked: boolean;
+  playersMove: boolean;
+  setPlayersMove: (v: boolean) => void;
 }

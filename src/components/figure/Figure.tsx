@@ -13,12 +13,28 @@ const Figure = ({
 }: {
   figure: { name: FigureType; firstMove: boolean };
 } & Coordinates) => {
-  const { setAvailableCells, setChosenFigure, boardState } = useGame();
+  const {
+    setAvailableCells,
+    setChosenFigure,
+    boardState,
+    playerColor,
+    playersMove,
+  } = useGame();
   const figureState = useMemo(() => createFigure(figure, x, y), [figure, x, y]);
   const showCoords = useCallback(() => {
-    setAvailableCells(figureState.getMoves(boardState));
-    setChosenFigure(figureState);
-  }, [figureState, setAvailableCells, setChosenFigure, boardState]);
+    if ((figure.name[0] === playerColor && playersMove) || true) {
+      setAvailableCells(figureState.getMoves(boardState));
+      setChosenFigure(figureState);
+    }
+  }, [
+    figure.name,
+    playerColor,
+    playersMove,
+    setAvailableCells,
+    figureState,
+    boardState,
+    setChosenFigure,
+  ]);
 
   return (
     <div
