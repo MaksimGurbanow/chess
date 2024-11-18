@@ -1,4 +1,4 @@
-import { ChessBoard, FigureType, Move } from '../../types/types';
+import { ChessBoard, Color, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
 
 export default class Knight extends Figure {
@@ -13,51 +13,33 @@ export default class Knight extends Figure {
   }
 
   public getMoves(board: ChessBoard): Move[] {
-    return [
-      {
-        x: this.x - 2,
-        y: this.y - 1,
-      },
-      {
-        x: this.x - 2,
-        y: this.y + 1,
-      },
-      {
-        x: this.x + 2,
-        y: this.y - 1,
-      },
-      {
-        x: this.x + 2,
-        y: this.y + 1,
-      },
-      {
-        y: this.y - 2,
-        x: this.x - 1,
-      },
-      {
-        y: this.y - 2,
-        x: this.x + 1,
-      },
-      {
-        y: this.y + 2,
-        x: this.x - 1,
-      },
-      {
-        y: this.y + 2,
-        x: this.x + 1,
-      },
-    ]
-      .filter(
-        (coordinate) =>
-          coordinate.x >= 0 &&
-          coordinate.y >= 0 &&
-          coordinate.x < 8 &&
-          coordinate.y < 8
-      )
-      .filter(
-        (coordinate) =>
-          (board[coordinate.y][coordinate.x].name[0] !== 'w' && this.isWhite) ||
-          (board[coordinate.y][coordinate.x].name[0] !== 'b' && !this.isWhite)
-      );
+    const oppositeColor: Color = this.isWhite ? 'b' : 'w';
+    return this.filterMoves(
+      [
+        { dx: 2, dy: 1 },
+        { dx: 2, dy: -1 },
+        { dx: 1, dy: 2 },
+        { dx: 1, dy: -2 },
+        { dx: -2, dy: -1 },
+        { dx: -2, dy: 1 },
+        {
+          dx: -1,
+          dy: 2,
+        },
+        {
+          dx: -1,
+          dy: -2,
+        },
+      ].map(({ dx, dy }) => ({
+        x: this.x + dx,
+        y: this.y + dy,
+        from: { x: this.x, y: this.y },
+        to: { x: this.x + dx, y: this.y + dy },
+      }))
+    ).filter(
+      ({ x, y }) =>
+        board[y][x].name[0] === oppositeColor ||
+        !this.isFigure(board[y][x].name)
+    );
   }
 }

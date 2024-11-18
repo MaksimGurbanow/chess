@@ -1,10 +1,5 @@
-import { ChessBoard, Color, FigureType, Move } from '../../types/types';
-import Bishop from './Bishop';
+import { ChessBoard, FigureType, Move } from '../../types/types';
 import Figure from './Figure';
-import Knight from './Knight';
-import Pawn from './Pawn';
-import Queen from './Queen';
-import Rook from './Rook';
 
 export default class King extends Figure {
   constructor(
@@ -25,41 +20,42 @@ export default class King extends Figure {
     });
   }
 
-  static isAttacked(
-    board: ChessBoard,
-    kingX: number,
-    kingY: number,
-    playersColor: Color
-  ): boolean {
-    const opponentColor = playersColor === 'w' ? 'b' : 'w';
+  // static isAttacked(
+  //   board: ChessBoard,
+  //   kingX: number,
+  //   kingY: number,
+  //   playersColor: Color
+  // ): boolean {
+  //   const opponentColor = playersColor === 'w' ? 'b' : 'w';
 
-    for (let rowIndex = 0; rowIndex < board.length; rowIndex += 1) {
-      for (
-        let cellIndex = 0;
-        cellIndex < board[rowIndex].length;
-        cellIndex += 1
-      ) {
-        const cell = board[rowIndex][cellIndex];
+  //   for (let rowIndex = 0; rowIndex < board.length; rowIndex += 1) {
+  //     for (
+  //       let cellIndex = 0;
+  //       cellIndex < board[rowIndex].length;
+  //       cellIndex += 1
+  //     ) {
+  //       const cell = board[rowIndex][cellIndex];
 
-        if (cell.name[0] === opponentColor) {
-          const figure = createFigure(
-            { name: cell.name, firstMove: cell.firstMove || false },
-            cellIndex,
-            rowIndex
-          );
+  //       if (cell.name[0] === opponentColor) {
+  //         const figure = createFigure(
+  //           { name: cell.name, firstMove: cell.firstMove || false },
+  //           cellIndex,
+  //           rowIndex
+  //         );
 
-          if (
-            figure
-              .getMoves(board)
-              .some((move) => move.x === kingX && move.y === kingY)
-          ) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
+  //         if (
+  //           !(figure instanceof King) &&
+  //           figure
+  //             .getMoves(board)
+  //             .some((move) => move.x === kingX && move.y === kingY)
+  //         ) {
+  //           return true;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return false;
+  // }
 
   public getCastlingMoves(board: ChessBoard): Move[] {
     const moves: Move[] = [];
@@ -76,16 +72,28 @@ export default class King extends Figure {
       ) {
         moves.push(
           {
+            from: { x: this.x, y: this.y },
+            to: { x: 6, y: this.y },
             x: this.x + 2,
             y: this.y,
             isCastling: true,
             castlingRook: { from: { x: 7, y }, to: { x: 5, y } },
+            castlingKing: {
+              from: { x: this.x, y: this.y },
+              to: { x: 6, y: this.y },
+            },
           },
           {
+            from: { x: this.x, y: this.y },
+            to: { x: 6, y: this.y },
             x: this.x + 3,
             y: this.y,
             isCastling: true,
             castlingRook: { from: { x: 7, y }, to: { x: 5, y } },
+            castlingKing: {
+              from: { x: this.x, y: this.y },
+              to: { x: 6, y: this.y },
+            },
           }
         );
       }
@@ -102,16 +110,28 @@ export default class King extends Figure {
       ) {
         moves.push(
           {
+            from: { x: this.x, y: this.y },
+            to: { x: 2, y: this.y },
             x: this.x - 2,
             y: this.y,
             isCastling: true,
             castlingRook: { from: { x: 0, y }, to: { x: 3, y } },
+            castlingKing: {
+              from: { x: this.x, y: this.y },
+              to: { x: 2, y: this.y },
+            },
           },
           {
+            from: { x: this.x, y: this.y },
+            to: { x: 2, y: this.y },
             x: this.x - 4,
             y: this.y,
             isCastling: true,
             castlingRook: { from: { x: 0, y }, to: { x: 3, y } },
+            castlingKing: {
+              from: { x: this.x, y: this.y },
+              to: { x: 2, y: this.y },
+            },
           }
         );
       }
@@ -160,7 +180,7 @@ export default class King extends Figure {
       const x = this.x + dx;
       const y = this.y + dy;
 
-      if (!(x < 0 || y < 0 || x >= 8 || y >= 8)) {
+      if (this.isWithinBounds({ x, y })) {
         const nextCell = board[y][x].name;
 
         if (this.isFigure(nextCell)) {
@@ -168,10 +188,10 @@ export default class King extends Figure {
             (this.isWhite && nextCell[0] === 'b') ||
             (!this.isWhite && nextCell[0] === 'w')
           ) {
-            moves.push({ x, y });
+            moves.push({ x, y, from: { x: this.x, y: this.y }, to: { x, y } });
           }
         } else {
-          moves.push({ x, y });
+          moves.push({ x, y, from: { x: this.x, y: this.y }, to: { x, y } });
         }
       }
     });
@@ -179,28 +199,3 @@ export default class King extends Figure {
     return moves;
   }
 }
-
-const createFigure = (
-  figure: { name: FigureType; firstMove: boolean },
-  x: number,
-  y: number
-) => {
-  const { name, firstMove } = figure;
-  const isWhite = name[0] === 'w';
-  switch (name[1]) {
-    case 'k':
-      return new King(x, y, isWhite, name, firstMove);
-    case 'q':
-      return new Queen(x, y, isWhite, name, firstMove);
-    case 'p':
-      return new Pawn(x, y, isWhite, name, firstMove);
-    case 'b':
-      return new Bishop(x, y, isWhite, name, firstMove);
-    case 'r':
-      return new Rook(x, y, isWhite, name, firstMove);
-    case 'n':
-      return new Knight(x, y, isWhite, name, firstMove);
-    default:
-      throw new Error(`Incorrect figure type: ${name[0] + figure}`);
-  }
-};

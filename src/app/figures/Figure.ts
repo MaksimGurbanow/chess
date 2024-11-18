@@ -1,10 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import {
-  Coordinates,
-  FigureProps,
-  FigureType,
-  IFigure,
-} from '../../types/types';
+import { FigureProps, FigureType, IFigure, Move } from '../../types/types';
 
 export default class Figure implements IFigure {
   public value: number;
@@ -43,10 +38,14 @@ export default class Figure implements IFigure {
     this.firstMove = firstMove;
   }
 
-  public filter(coords: Coordinates[]): Coordinates[] {
+  protected isWithinBounds(coord: Pick<Move, 'x' | 'y'>): boolean {
+    return coord.x >= 0 && coord.y >= 0 && coord.x < 8 && coord.y < 8;
+  }
+
+  protected filterMoves(coords: Pick<Move, 'x' | 'y'>[]): Move[] {
     return coords.filter(
-      (coord) => coord.x >= 0 && coord.y >= 0 && coord.x < 8 && coord.y < 8
-    );
+      (coord) => coord.x >= 0 && coord.x < 8 && coord.y >= 0 && coord.y < 8
+    ) as Move[];
   }
 
   public move(x: number, y: number) {

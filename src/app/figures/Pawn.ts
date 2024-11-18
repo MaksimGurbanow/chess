@@ -12,87 +12,88 @@ export default class Pawn extends Figure {
     super({ value: 1, x, y, isTransformable: false, isWhite, name, firstMove });
   }
 
-  public getMoves(board: ChessBoard): Move[] {
+  // possible bugs
+  private moveIfIsValid(board: ChessBoard) {
     const moves: Move[] = [];
-    if (this.isWhite) {
-      if (!this.isFigure(board[this.y - 1][this.x].name)) {
-        // adds the move if figure is white and there is no pieces on the possible move
-        moves.push({ x: this.x, y: this.y - 1 });
-        if (this.firstMove && !this.isFigure(board[this.y - 2][this.x].name)) {
-          moves.push({ x: this.x, y: this.y - 2 });
-        }
-      }
-      // adds white pawn's attacking moves
-      if (this.x + 1 < 8) {
-        const rightPiece = board[this.y - 1][this.x + 1].name;
-        if (this.isFigure(rightPiece) && rightPiece[0] === 'b') {
-          moves.push({ x: this.x + 1, y: this.y - 1 });
-        }
-        const enPassantRight = board[this.y][this.x + 1];
-        if (enPassantRight.name === 'bp' && enPassantRight.enPassant) {
+    const { x } = this;
+    const y = this.isWhite ? this.y - 1 : this.y + 1;
+    const twoY = this.isWhite ? this.y - 2 : this.y + 2;
+    if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+      if (!this.isFigure(board[y][x].name)) {
+        moves.push({
+          x,
+          y,
+          from: { x: this.x, y: this.y },
+          to: { x, y },
+        });
+        if (this.firstMove && !this.isFigure(board[twoY][x].name)) {
           moves.push({
-            x: this.x + 1,
-            y: this.y - 1,
-            isEnpassant: true,
-            pieceToRemove: { x: this.x + 1, y: this.y },
-          });
-        }
-      }
-      if (this.x - 1 >= 0) {
-        const leftPiece = board[this.y - 1][this.x - 1].name;
-        if (this.isFigure(leftPiece) && leftPiece[0] === 'b') {
-          moves.push({ x: this.x - 1, y: this.y - 1 });
-        }
-        const enPassantLeft = board[this.y][this.x - 1];
-        if (enPassantLeft.name === 'bp' && enPassantLeft.enPassant) {
-          moves.push({
-            x: this.x - 1,
-            y: this.y - 1,
-            isEnpassant: true,
-            pieceToRemove: { x: this.x - 1, y: this.y },
-          });
-        }
-      }
-    } else {
-      if (!this.isFigure(board[this.y + 1][this.x].name)) {
-        // adds the move if piece is black and here is no pieces on the possible move
-        moves.push({ x: this.x, y: this.y + 1 });
-        if (this.firstMove && !this.isFigure(board[this.y + 2][this.x].name)) {
-          moves.push({ x: this.x, y: this.y + 2 });
-        }
-      }
-      // adds black pawn's attacking moves
-      if (this.x + 1 < 8) {
-        const rightPiece = board[this.y + 1][this.x + 1].name;
-        if (this.isFigure(rightPiece) && rightPiece[0] === 'w') {
-          moves.push({ x: this.x + 1, y: this.y + 1 });
-        }
-        const enPassanRight = board[this.y][this.x + 1];
-        if (enPassanRight.name === 'wp' && enPassanRight.enPassant) {
-          moves.push({
-            x: this.x + 1,
-            y: this.y + 1,
-            isEnpassant: true,
-            pieceToRemove: { x: this.x + 1, y: this.y },
-          });
-        }
-      }
-      if (this.x - 1 >= 0) {
-        const leftPiece = board[this.y + 1][this.x - 1].name;
-        if (this.isFigure(leftPiece) && leftPiece[0] === 'w') {
-          moves.push({ x: this.x - 1, y: this.y + 1 });
-        }
-        const enPassanLeft = board[this.y][this.x - 1];
-        if (enPassanLeft.name === 'wp' && enPassanLeft.enPassant) {
-          moves.push({
-            x: this.x - 1,
-            y: this.y + 1,
-            isEnpassant: true,
-            pieceToRemove: { x: this.x - 1, y: this.y },
+            x: this.x,
+            y: twoY,
+            to: { x, y: twoY },
+            from: { x: this.x, y: this.y },
           });
         }
       }
     }
-    return this.filter(moves);
+
+    return moves;
+  }
+
+  // possible bugs
+  private enPassantMoves(board: ChessBoard) {
+    const moves: Move[] = [];
+    const sides = [this.x + 1, this.x - 1];
+    const y = this.isWhite ? this.y - 1 : this.y + 1;
+    const oppositePawn = this.isWhite ? 'bp' : 'wp';
+    sides.forEach((x) => {
+      if (this.isWithinBounds({ x, y })) {
+        const enPassantPiece = board[this.y][x];
+        if (enPassantPiece.name === oppositePawn && enPassantPiece.enPassant) {
+          moves.push({
+            x,
+            y,
+            isEnpassant: true,
+            pieceToRemove: { x, y: this.y },
+            to: { x, y },
+            from: { x: this.x, y: this.y },
+          });
+        }
+      }
+    });
+
+    return moves;
+  }
+
+  private attackingMoves(board: ChessBoard) {
+    const moves: Move[] = [];
+    const directions = [this.x + 1, this.x - 1];
+    const y = this.isWhite ? this.y - 1 : this.y + 1;
+    const oppositePieceColor = this.isWhite ? 'b' : 'w';
+    directions.forEach((x) => {
+      if (this.isWithinBounds({ x, y })) {
+        const rightPiece = board[y][x].name;
+        if (this.isFigure(rightPiece) && rightPiece[0] === oppositePieceColor) {
+          moves.push({
+            x,
+            y,
+            from: { x: this.x, y: this.y },
+            to: { x, y },
+          });
+        }
+      }
+    });
+
+    return moves;
+  }
+
+  public getMoves(board: ChessBoard): Move[] {
+    const moves: Move[] = [];
+    moves.push(
+      ...this.moveIfIsValid(board),
+      ...this.attackingMoves(board),
+      ...this.enPassantMoves(board)
+    );
+    return this.filterMoves(moves);
   }
 }

@@ -56,9 +56,12 @@ export enum FigurePath {
 export type Coordinates = { x: number; y: number };
 
 export type Move = Coordinates & {
+  from: Coordinates;
+  to: Coordinates;
   isEnpassant?: boolean;
   isCastling?: boolean;
   castlingRook?: { from: Coordinates; to: Coordinates };
+  castlingKing?: { from: Coordinates; to: Coordinates };
   pieceToRemove?: Coordinates;
 };
 

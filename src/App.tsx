@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import Login from './routes/Login';
-import Main from './routes/Main';
+import Main from './routes/Main/Main';
 import Home from './routes/Home/Home';
 import Profile from './routes/Profile';
 import { StoreProvider } from './redux/store';

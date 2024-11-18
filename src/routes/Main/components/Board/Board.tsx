@@ -1,6 +1,6 @@
-import Row from '../row/Row';
+import Row from '../Row/Row';
 import classes from './Board.module.scss';
-import { useGame } from '../../context/useGame';
+import { useGame } from '../../../../context/useGame';
 
 const Board = () => {
   const { boardState } = useGame();

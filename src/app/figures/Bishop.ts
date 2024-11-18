@@ -14,70 +14,44 @@ export default class Bishop extends Figure {
   }
 
   public getMoves(board: ChessBoard): Move[] {
-    const moves = [];
-    for (let x = this.x + 1; x < 8; x += 1) {
-      const difference = Math.abs(x - this.x);
-      if (this.y + difference >= 8) continue;
-      const nextUpCell = board[this.y + difference][x].name;
-      if (this.isFigure(nextUpCell)) {
-        if (
-          (this.isWhite && nextUpCell[0] === 'b') ||
-          (!this.isWhite && nextUpCell[0] === 'w')
-        ) {
-          moves.push({ x, y: this.y + difference });
+    const moves: Move[] = [];
+    const directions = [
+      {
+        dx: 1,
+        dy: 1,
+      },
+      {
+        dx: 1,
+        dy: -1,
+      },
+      {
+        dx: -1,
+        dy: 1,
+      },
+      {
+        dx: -1,
+        dy: -1,
+      },
+    ];
+    directions.forEach(({ dx, dy }) => {
+      let x = this.x + dx;
+      let y = this.y + dy;
+      while (this.isWithinBounds({ x, y })) {
+        const nextCell = board[y][x].name;
+        const oppositeColor = this.isWhite ? 'b' : 'w';
+        if (this.isFigure(nextCell)) {
+          if (nextCell[0] === oppositeColor) {
+            moves.push({ x, y, from: { x: this.x, y: this.y }, to: { x, y } });
+          }
+          break;
+        } else {
+          moves.push({ x, y, from: { x: this.x, y: this.y }, to: { x, y } });
         }
-        break;
+        x += dx;
+        y += dy;
       }
-      moves.push({ x, y: this.y + difference });
-    }
-    for (let x = this.x - 1; x >= 0; x -= 1) {
-      const difference = Math.abs(x - this.x);
-      if (this.y + difference >= 8) continue;
-      const nextUpCell = board[this.y + difference][x].name;
-      if (this.isFigure(nextUpCell)) {
-        if (
-          (this.isWhite && nextUpCell[0] === 'b') ||
-          (!this.isWhite && nextUpCell[0] === 'w')
-        ) {
-          moves.push({ x, y: this.y + difference });
-        }
-        break;
-      }
-      moves.push({ x, y: this.y + difference });
-    }
-    for (let x = this.x + 1; x < 8; x += 1) {
-      const difference = Math.abs(x - this.x);
-      if (this.y - difference < 0) continue;
-      const nextDownCell = board[this.y - difference][x].name;
-      if (this.isFigure(nextDownCell)) {
-        if (
-          (this.isWhite && nextDownCell[0] === 'b') ||
-          (!this.isWhite && nextDownCell[0] === 'w')
-        ) {
-          moves.push({ x, y: this.y - difference });
-        }
-        break;
-      }
-      moves.push({ x, y: this.y - difference });
-    }
-    for (let x = this.x - 1; x >= 0; x -= 1) {
-      const difference = Math.abs(x - this.x);
-      if (this.y - difference < 0) continue;
-      const nextDownCell = board[this.y - difference][x].name;
-      if (this.isFigure(nextDownCell)) {
-        if (
-          (this.isWhite && nextDownCell[0] === 'b') ||
-          (!this.isWhite && nextDownCell[0] === 'w')
-        ) {
-          moves.push({ x, y: this.y - difference });
-        }
-        break;
-      }
-      moves.push({ x, y: this.y - difference });
-    }
+    });
 
-    return moves.filter(
-      (move) => move.x >= 0 && move.y < 8 && move.y >= 0 && move.x < 8
-    );
+    return this.filterMoves(moves);
   }
 }

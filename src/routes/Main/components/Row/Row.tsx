@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { RowProps } from '../../types/props';
-import Cell from '../cell/Cell';
+import { RowProps } from '../../../../types/props';
+import Cell from '../Cell/Cell';
 import classes from './Row.module.scss';
 
 const Row = ({ positions, yCoord }: RowProps) => {

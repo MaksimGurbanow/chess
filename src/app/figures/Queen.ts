@@ -25,7 +25,7 @@ export default class Queen extends Figure {
       { dx: -1, dy: -1 }, // up-left
     ];
 
-    for (const { dx, dy } of directions) {
+    directions.forEach(({ dx, dy }) => {
       let x = this.x + dx;
       let y = this.y + dy;
 
@@ -37,16 +37,16 @@ export default class Queen extends Figure {
             (this.isWhite && nextCell[0] === 'b') ||
             (!this.isWhite && nextCell[0] === 'w')
           ) {
-            moves.push({ x, y });
+            moves.push({ x, y, from: { x: this.x, y: this.y }, to: { x, y } });
           }
           break;
         }
 
-        moves.push({ x, y });
+        moves.push({ x, y, from: { x: this.x, y: this.y }, to: { x, y } });
         x += dx;
         y += dy;
       }
-    }
+    });
 
     return moves;
   }
