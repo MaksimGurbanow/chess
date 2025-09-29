@@ -1,4 +1,9 @@
-import { CSSProperties, InputHTMLAttributes, LabelHTMLAttributes } from 'react';
+import {
+  CSSProperties,
+  DragEventHandler,
+  InputHTMLAttributes,
+  LabelHTMLAttributes,
+} from 'react';
 import { IconProps } from 'react-bootstrap-icons';
 import { ChessRow, Color, Coordinates, FigureType } from './types';
 import Bishop from '../app/figures/Bishop';
@@ -46,7 +51,7 @@ export interface FigureProps extends Coordinates {
   x: number;
   y: number;
   figureStyle?: Partial<CSSProperties>;
-  handleDrop?: DraggableEventHandler;
+  handleDrop?: DragEventHandler<HTMLDivElement>;
 }
 
 export interface DefinedFigureProps {

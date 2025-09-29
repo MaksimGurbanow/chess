@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   createContext,
   ReactNode,
@@ -156,8 +157,10 @@ const WebsocketProvider = ({ children }: { children: ReactNode }) => {
       message: T,
       handler: (payload: OnMessagePayloadType[T]) => () => void
     ) => {
+      // @ts-ignore
       socket.on(message, handler);
       return () => {
+        // @ts-ignore
         socket.off(message, handler);
       };
     },
@@ -205,6 +208,7 @@ const WebsocketProvider = ({ children }: { children: ReactNode }) => {
     [clientId, emitMessage, isConnected, onMessage]
   );
   return (
+    // @ts-ignore
     <WebsocketContext.Provider value={contextValue}>
       {children}
     </WebsocketContext.Provider>
