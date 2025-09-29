@@ -1,0 +1,29 @@
+.alert {
+  &Wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: #d7d7d733;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+  &Content {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px dotted #cea0a0;
+    animation: spin 4s infinite linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotateZ(0);
+  } to {
+    transform: rotateZ(360deg);
+  }
+}

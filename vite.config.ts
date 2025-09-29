@@ -19,4 +19,7 @@ export default defineConfig({
       include: ['src/**'],
     },
   },
+  optimizeDeps: {
+    exclude: ['socket.io-client'],
+  },
 });

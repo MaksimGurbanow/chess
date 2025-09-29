@@ -1,39 +1,154 @@
 .header {
   display: flex;
-  flex-direction: row;
-  align-self: start;
-  float: right;
-  width: 100%;
-  height: auto;
-  position: fixed;
   justify-content: flex-end;
-  overflow: auto;
+  align-items: center;
+  width: 100%;
+  position: fixed;
   top: 0;
   right: 0;
-  padding: 15px 40px;
+  padding: 12px 40px;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .headerList {
   display: flex;
-  height: 60px;
-  flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.loginButton {
-  float: end;
+  gap: 20px;
 }
 
 .link {
   text-decoration: none;
-  color: unset;
+  color: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .closeIcon {
-  margin-right: calc(100% - 45px);
+  margin-right: auto;
+  svg {
+    color: #fff;
+    font-size: 28px;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: rotate(90deg);
+    color: #ff4d4d;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #222;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+.loginButton,
+.signupButton,
+.logoutButton {
+  flex: 1;
+  padding: 10px 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  // transition: all 0.3s ease;
+}
+
+.loginButton {
+  height: 100%;
+  background: linear-gradient(135deg, #444, #222);
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  padding: 10px 20px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  // background: all 400ms ease;
+  position: relative;
+  // overflow: hidden;
+
+  &:hover {
+    // background: linear-gradient(-135deg, #555, #333);
+    // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 250%;
+    width: 50%;
+    height: 100%;
+    border-radius: 25px;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0) 80%
+    );
+    transition: left 500ms ease;
+    z-index: 5;
+  }
+
+  &:hover::after {
+    left: -50%;
+  }
+}
+
+
+.signupButton {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  color: #222;
+  // transition: all 500ms ease-in-out;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    border-radius: 25px;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0) 80%
+    );
+    transition: left 500ms ease;
+    z-index: 5;
+  }
+
+  &:hover::after {
+    left: 150%;
+  }
+}
+
+.logoutButton {
+  background: linear-gradient(135deg, #ff4d4d, #d11a2a);
+  border-radius: 30px;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.profileIcon {
+  svg {
+    font-size: 28px;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+
+  &:hover svg {
+    color: #ff7e5f;
+  }
 }

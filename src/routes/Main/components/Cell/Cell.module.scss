@@ -8,7 +8,7 @@
   border: none;
 
   &Highlight {
-    background: #312e2b63;;
+    background: #312e2b63;
     position: absolute;
     top: 50%;
     right: 50%;
@@ -17,9 +17,19 @@
     height: 10px;
     transform: translate(50%, -50%);
     z-index: 5;
+    box-shadow: 0 0 5px 1px;
   }
 
   & .active {
     background: var(--highlight-color) !important;
   }
+
+  &.lastMove {
+    background: #ffff00bf !important;
+  }
+}
+
+.dragentered {
+  background: var(--highlight-color);
+  box-shadow: 0 0 5px 2px var(--accent-color);
 }

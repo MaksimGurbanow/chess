@@ -33,3 +33,11 @@ body, #root, .page {
 .login {
   justify-content: center;
 }
+
+.dragging-cursor {
+  cursor: grabbing !important;
+  /* OR custom image:
+  cursor: url('/assets/cursors/grab.png') 8 8, grabbing !important; 
+  */
+}
+

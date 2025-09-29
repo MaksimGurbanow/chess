@@ -3,7 +3,7 @@ import { RowProps } from '../../../../types/props';
 import Cell from '../Cell/Cell';
 import classes from './Row.module.scss';
 
-const Row = ({ positions, yCoord }: RowProps) => {
+const Row = ({ positions, yCoord, setTransformInfo }: RowProps) => {
   return (
     <div className={classes.boardRow}>
       {positions.map((figure, i) => {
@@ -18,6 +18,7 @@ const Row = ({ positions, yCoord }: RowProps) => {
             x={i}
             y={yCoord}
             className={classes.cell}
+            setTransformInfo={setTransformInfo}
           />
         );
       })}

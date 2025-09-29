@@ -1,6 +1,6 @@
-import { InputHTMLAttributes, LabelHTMLAttributes } from 'react';
+import { CSSProperties, InputHTMLAttributes, LabelHTMLAttributes } from 'react';
 import { IconProps } from 'react-bootstrap-icons';
-import { ChessRow, Coordinates, FigureType } from './types';
+import { ChessRow, Color, Coordinates, FigureType } from './types';
 import Bishop from '../app/figures/Bishop';
 import King from '../app/figures/King';
 import Knight from '../app/figures/Knight';
@@ -34,14 +34,47 @@ export interface CellProps {
   x: number;
   y: number;
   // highlighted: boolean;
-  // onClick: (x: number, y: number) => void;
+  onClick?: () => void;
   className?: string;
+  setTransformInfo?: (
+    info: { pawnColor: Color; x: number; y: number } | null
+  ) => void;
+}
+
+export interface FigureProps extends Coordinates {
+  figure: { name: FigureType; firstMove: boolean };
+  x: number;
+  y: number;
+  figureStyle?: Partial<CSSProperties>;
+  handleDrop?: DraggableEventHandler;
+}
+
+export interface DefinedFigureProps {
+  figure: FigureType[1];
+  color: FigureType[0];
+  style?: Partial<CSSProperties>;
+}
+
+export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  message: string;
+  type?: 'error' | 'success' | 'info';
+  onClose?: () => void;
+  duration?: number;
+  showCloseButton?: boolean;
 }
 
 export interface RowProps {
   positions: ChessRow;
   yCoord: number;
+  setTransformInfo?: (
+    info: { pawnColor: Color; x: number; y: number } | null
+  ) => void;
   // showCoords: ChooseFigure;
   // availableCells: Coordinates[];
   // clickCell: (x: number, y: number) => void;
+}
+
+export interface ControlBarProps {
+  showSettings: boolean;
+  setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }

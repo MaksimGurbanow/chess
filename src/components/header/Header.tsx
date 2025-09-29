@@ -1,39 +1,44 @@
-import { PersonCircle, XCircle } from 'react-bootstrap-icons';
-import classes from './Header.module.scss';
+import { PersonCircle } from 'react-bootstrap-icons';
+// import cn from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
+import classes from './Header.module.scss';
 import CustomIcon from '../customIcon/CustomIcon';
 import Button from '../Button/Button';
-import { User } from '../../types/types';
-import cn from 'classnames';
-
-const user: User = {
-  username: 'f',
-  email: 'f',
-  password: 'f',
-  darkTheme: false,
-  wins: 0,
-  loses: 0,
-  games: 0,
-  draws: 0,
-};
+import { useUser } from '../../context/useUser';
 
 const Header = () => {
   const { pathname } = useLocation();
+  const { user, logout } = useUser();
 
   return (
     <header className={classes.header}>
-      {pathname === '/login' && (
+      {/* {pathname === '/login' && (
         <Link to="/" className={cn(classes.link, classes.closeIcon)}>
           <CustomIcon icon={<XCircle />} />
         </Link>
-      )}
+      )} */}
       <ul className={classes.headerList}>
-        {pathname !== '/login' && (
-          <Button className={classes.loginButton}>
-            <Link className={classes.link} to="/login">
-              Login
-            </Link>
-          </Button>
+        {!['/login', '/signup'].includes(pathname) && (
+          <div className={classes.buttonsWrapper}>
+            {!user ? (
+              <>
+                <Button className={classes.loginButton}>
+                  <Link className={classes.link} to="/login">
+                    Login
+                  </Link>
+                </Button>
+                <Button className={classes.signupButton}>
+                  <Link className={classes.link} to="/signup">
+                    SignUp
+                  </Link>
+                </Button>
+              </>
+            ) : (
+              <Button className={classes.logoutButton} onClick={() => logout()}>
+                Logout
+              </Button>
+            )}
+          </div>
         )}
         {user && (
           <Link className={classes.link} to="/profile">

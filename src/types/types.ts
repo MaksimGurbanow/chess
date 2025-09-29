@@ -1,4 +1,15 @@
 export interface ILoginData {
+  password: string;
+  username: string;
+}
+
+export interface ILogoutData {
+  name: string;
+}
+
+export type UserClientId = { clientId: string; userId: string };
+
+export interface ISignUpData {
   email: string;
   password: string;
   username: string;
@@ -13,6 +24,19 @@ export interface User {
   loses: number;
   games: number;
   draws: number;
+}
+
+export interface FilterCellsProps {
+  availableCells: Move[];
+  boardState: ChessBoard;
+  kingPosition: Record<string, { x: number; y: number }>;
+  currentMovePlayerColor: Color;
+}
+
+export interface GameSearchProps {
+  isOnline: boolean;
+  opponentId?: string;
+  opponentClientId?: string;
 }
 
 export type ChessRow = {
@@ -84,6 +108,31 @@ export interface GameState {
   playerColor: Color;
   boardState: ChessBoard;
   isKingAttacked: boolean;
-  playersMove: boolean;
-  setPlayersMove: (v: boolean) => void;
+}
+
+export type GameResultReason =
+  | 'checkmate'
+  | 'surrendered'
+  | ''
+  | 'time-over'
+  | 'left-game'
+  | 'no-moves-left'
+  | 'repetitive-moves'
+  | 'both-accepted-draw';
+
+export type GameResultResult = 'win' | 'lose' | 'draw' | '';
+
+export interface GameResult {
+  finished: boolean;
+  whoWon: string;
+  reason:
+    | 'checkmate'
+    | 'surrendered'
+    | ''
+    | 'timeout'
+    | 'left-game'
+    | 'no-moves-left'
+    | 'repetitive-moves'
+    | 'both-accepted-draw';
+  result: 'win' | 'lose' | 'draw' | '';
 }

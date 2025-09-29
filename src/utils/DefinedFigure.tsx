@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 
+import React, { useMemo } from 'react';
 import Bishop from '../assets/figures/bishop.svg?react';
 import Pawn from '../assets/figures/pawn.svg?react';
 import Knight from '../assets/figures/knight.svg?react';
@@ -12,51 +13,53 @@ import WKnight from '../assets/figures/wKnight.svg?react';
 import WRock from '../assets/figures/wRock.svg?react';
 import WQueen from '../assets/figures/wQueen.svg?react';
 import WKing from '../assets/figures/wKing.svg?react';
-import { FigureType } from '../types/types';
+import { DefinedFigureProps } from '../types/props';
 
-const DefinedFigure = ({
-  figure,
-  color,
-}: {
-  figure: FigureType[1];
-  color: FigureType[0];
-}) => {
+const DefinedFigure = ({ figure, color, style = {} }: DefinedFigureProps) => {
+  const figureStyle: Partial<React.CSSProperties> = useMemo(
+    () => ({
+      transform: 'translateX(-1px)',
+      ...style,
+      aspectRatio: 1,
+    }),
+    [style]
+  );
   switch (figure) {
     case 'b':
       return color === 'b' ? (
-        <Bishop style={{ transform: 'translateX(-1px)' }} />
+        <Bishop style={figureStyle} />
       ) : (
-        <WBishop style={{ transform: 'translateX(-1px)' }} />
+        <WBishop style={figureStyle} />
       );
     case 'k':
       return color === 'b' ? (
-        <King style={{ transform: 'translateX(-1px)' }} />
+        <King style={figureStyle} />
       ) : (
-        <WKing style={{ transform: 'translateX(-1px)' }} />
+        <WKing style={figureStyle} />
       );
     case 'q':
       return color === 'b' ? (
-        <Queen style={{ transform: 'translateX(-1px)' }} />
+        <Queen style={figureStyle} />
       ) : (
-        <WQueen style={{ transform: 'translateX(-1px)' }} />
+        <WQueen style={figureStyle} />
       );
     case 'n':
       return color === 'b' ? (
-        <Knight style={{ transform: 'translateX(-1px)' }} />
+        <Knight style={figureStyle} />
       ) : (
-        <WKnight style={{ transform: 'translateX(-1px)' }} />
+        <WKnight style={figureStyle} />
       );
     case 'r':
       return color === 'b' ? (
-        <Rock style={{ transform: 'translateX(-1px)' }} />
+        <Rock style={figureStyle} />
       ) : (
-        <WRock style={{ transform: 'translateX(-1px)' }} />
+        <WRock style={figureStyle} />
       );
     default:
       return color === 'b' ? (
-        <Pawn style={{ transform: 'translateX(-1px)' }} />
+        <Pawn style={figureStyle} />
       ) : (
-        <WPawn style={{ transform: 'translateX(-1px)' }} />
+        <WPawn style={figureStyle} />
       );
   }
 };

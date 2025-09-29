@@ -1,0 +1,48 @@
+.alert {
+  &Wrapper {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    z-index: 1000;
+    display: flex;
+  }
+
+  &Message {
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 10px;
+    flex: 3;
+  }
+
+  &Button {
+    margin-left: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1001;
+    flex: 1;
+    max-width: 50px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.error {
+  background-color: #f44336; /* Red */
+}
+
+.success {
+  background-color: #4caf50; /* Green */
+}
+
+.info {
+  background-color: #2196f3; /* Blue */
+}

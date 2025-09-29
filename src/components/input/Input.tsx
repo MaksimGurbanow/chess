@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
+import cn from 'classnames';
 import classes from './Input.module.scss';
 import { InputProps } from '../../types/props';
-import cn from 'classnames'
 
 const Input = ({
   placeholder,
@@ -23,7 +23,9 @@ const Input = ({
         <label
           htmlFor={inputId}
           form={form}
-          className={cn(classes.label, { [classes.focused]: value || isFocused })}
+          className={cn(classes.label, {
+            [classes.focused]: value || isFocused,
+          })}
           // className={`label ${isFocused || value ? 'focused' : ''}`}
         >
           {name}

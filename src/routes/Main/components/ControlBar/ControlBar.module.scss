@@ -1,0 +1,92 @@
+.controlBar {
+  &Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80px;
+    position: relative;
+  }
+
+  &DropdownToggle, &Item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &Item {
+    height: 100%;
+    width: 80px;
+    cursor: pointer;
+    border: 2px solid #767676;
+    border-right: none;
+    background-color: transparent;
+
+    &:last-child {
+      border: 2px solid #767676;
+    }
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  &SettingsDropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -25% !important;
+    left: -10% !important;
+    height: fit-content;
+    z-index: 100;
+    border: 1px solid #ccc;
+    font-size: 20px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    gap: 10px;
+  }
+
+  &SettingsItem {
+    opacity: 0.5 !important;
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+}
+
+.drawOfferMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2em;
+  position: absolute;
+  transform: translateX(-150%);
+  &Buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  &Check {
+      path {
+        transition: filter 0.3s, fill 0.3s;
+      }
+
+      &:hover path {
+        fill: greenyellow;
+        filter: drop-shadow(0 0 4px greenyellow);
+      }
+    }
+
+  &Cancel {
+    path {
+      transition: filter 0.3s, fill 0.3s;
+    }
+  
+    &:hover path {
+      fill: rgb(255, 47, 47);
+      filter: drop-shadow(0 0 4px rgb(255, 47, 47));
+    }
+  }
+}

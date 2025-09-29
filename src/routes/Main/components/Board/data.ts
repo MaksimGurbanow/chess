@@ -1,4 +1,4 @@
-import { ChessBoard } from '../../types/types';
+import { ChessBoard } from '../../../../types/types';
 
 const initialBoard: ChessBoard = [
   [
