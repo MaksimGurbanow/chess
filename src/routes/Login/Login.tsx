@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Form from '../../components/form/Form';
+import Form from '../../components/Form/Form';
 import { ILoginData } from '../../types/types';
 import classes from './Login.module.scss';
 import { useUser } from '../../context/useUser';
